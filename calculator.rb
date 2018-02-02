@@ -22,6 +22,8 @@ def evaluate(tree)
     evaluate(tree[1]) > evaluate(tree[2])
   when '<'
     evaluate(tree[1]) < evaluate(tree[2])
+  when 'func_call' #仮の実装
+    p(evaluate(tree[2]))
   end
 end
 
@@ -41,12 +43,8 @@ def max(tree)
   end
 end
 
-str = gets
+str = minruby_load()
 
 tree = minruby_parse(str)
 
-answer = evaluate(tree)
-max = max(tree)
-
-p answer
-p max
+evaluate(tree)
