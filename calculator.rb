@@ -29,8 +29,11 @@ end
 
 #tree->integer 木を受け取って一番大きい値の葉を返す
 def max(tree)
-  if tree[0] == 'lit'
+  case tree[0]
+  when 'lit'
     tree[1]
+  when 'func_call'
+    p(max(tree[2]))
   else
     left = max(tree[1])
     right = max(tree[2])
@@ -48,3 +51,4 @@ str = minruby_load()
 tree = minruby_parse(str)
 
 evaluate(tree)
+max(tree)
