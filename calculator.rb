@@ -45,6 +45,11 @@ def evaluate(tree, env)
     while evaluate(tree[1], env)
       evaluate(tree[2], env)
     end
+  when 'while2'
+    evaluate(tree[2], env)
+    while evaluate(tree[1], env)
+      evaluate(tree[2], env)
+    end
   when 'func_call' #仮の実装
     p(evaluate(tree[2], env))
   end
