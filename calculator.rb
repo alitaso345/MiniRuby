@@ -35,6 +35,16 @@ def evaluate(tree, env)
     env[tree[1]] = evaluate(tree[2], env)
   when 'var_ref' #変数参照の実装
     env[tree[1]]
+  when 'if'
+    if evaluate(tree[1], env)
+      evaluate(tree[2], env)
+    else
+      evaluate(tree[3], env)
+    end
+  when 'while'
+    while evaluate(tree[1], env)
+      evaluate(tree[2], env)
+    end
   when 'func_call' #仮の実装
     p(evaluate(tree[2], env))
   end
@@ -63,5 +73,6 @@ str = minruby_load()
 
 tree = minruby_parse(str)
 
-env = {plus_count: 0}
+env = { "plus_count" => 0 }
+
 evaluate(tree, env)
