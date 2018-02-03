@@ -22,6 +22,13 @@ def evaluate(tree)
     evaluate(tree[1]) > evaluate(tree[2])
   when '<'
     evaluate(tree[1]) < evaluate(tree[2])
+  when 'stmts' #複文の実装
+    i = 1
+    while tree[i] != nil
+      last = evaluate(tree[i])
+      i = i + 1
+    end
+    last
   when 'func_call' #仮の実装
     p(evaluate(tree[2]))
   end
@@ -51,4 +58,3 @@ str = minruby_load()
 tree = minruby_parse(str)
 
 evaluate(tree)
-max(tree)
