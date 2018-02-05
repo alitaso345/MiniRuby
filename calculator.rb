@@ -89,12 +89,25 @@ def add(x, y)
   x + y
 end
 
+#引数に与えられた数までのFizzBuzzを表示する
+def fizzbuzz(x)
+  1.upto(x) do |i|
+    str = ''
+    str += 'Fizz' if i%3 == 0
+    str += 'Buzz' if i%5 == 0
+    str = i if str.empty?
+
+    puts str
+  end
+end
+
 str = minruby_load()
 
 tree = minruby_parse(str)
 
 genv = { "p" => ["builtin", "p"],
          "add" => ["builtin", "add"],
+         "fizzbuzz" => ["builtin", "fizzbuzz"],
        }
 
 lenv = { "plus_count" => 0 }
