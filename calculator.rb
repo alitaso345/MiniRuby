@@ -85,11 +85,18 @@ def max(tree)
   end
 end
 
+def add(x, y)
+  x + y
+end
+
 str = minruby_load()
 
 tree = minruby_parse(str)
 
-genv = { "p" => ["builtin", "p"] }
+genv = { "p" => ["builtin", "p"],
+         "add" => ["builtin", "add"],
+       }
+
 lenv = { "plus_count" => 0 }
 
 evaluate(tree, genv, lenv)
