@@ -50,6 +50,8 @@ def evaluate(tree, genv, lenv)
     while evaluate(tree[1], genv, lenv)
       evaluate(tree[2], genv, lenv)
     end
+  when 'func_def'
+    genv[tree[1]] = ["user_defined", tree[2], tree[3]]
   when 'func_call' #仮の実装
     args = []
     i = 0
@@ -62,6 +64,14 @@ def evaluate(tree, genv, lenv)
     if mhd[0] == 'builtin'
       minruby_call(mhd[1], args)
     else
+      new_lenv = {}
+      params = mhd[1]
+      i = 0
+      while params[i]
+        new_lenv[params[i]] = args[i]
+        i = i + 1
+      end
+      evaluate(mhd[2], genv, new_lenv)
     end
   end
 end
