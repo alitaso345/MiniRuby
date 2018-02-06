@@ -77,6 +77,24 @@ def evaluate(tree, genv, lenv)
       end
       evaluate(mhd[2], genv, new_lenv)
     end
+  when 'ary_new'
+    ary = []
+    i = 0
+    while tree[i + 1]
+      ary[i] = evaluate(tree[i + 1], genv, lenv)
+      i += 1
+    end
+    
+    ary
+  when 'ary_ref'
+    ary = evaluate(tree[1], genv, lenv)
+    idx = evaluate(tree[2], genv, lenv)
+    ary[idx]
+  when 'ary_assign'
+    ary = evaluate(tree[1], genv, lenv)
+    idx = evaluate(tree[2], genv, lenv)
+    val = evaluate(tree[3], genv, lenv)
+    ary[idx] = val
   end
 end
 
