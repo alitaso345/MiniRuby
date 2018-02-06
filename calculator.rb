@@ -124,14 +124,34 @@ def fib(x)
   end
 end
 
+#偶数判定
+def even?(n)
+  if n == 0
+    true
+  else
+    odd?(n-1)
+  end
+end
+
+#奇数判定
+def odd?(n)
+  if n == 0
+    false
+  else
+    even?(n-1)
+  end
+end
+
 str = minruby_load()
 
 tree = minruby_parse(str)
 
-genv = { "p" => ["builtin", "p"],
-         "add" => ["builtin", "add"],
+genv = { "p"        => ["builtin", "p"],
+         "add"      => ["builtin", "add"],
          "fizzbuzz" => ["builtin", "fizzbuzz"],
-         "fib" => ["builtin", "fib"],
+         "fib"      => ["builtin", "fib"],
+         "even?"    => ["builtin", "even?"],
+         "odd?"     => ["builtin", "odd?"],
        }
 
 lenv = { "plus_count" => 0 }
