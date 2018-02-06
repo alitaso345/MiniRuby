@@ -23,6 +23,10 @@ def evaluate(tree, genv, lenv)
     evaluate(tree[1], genv, lenv) > evaluate(tree[2], genv, lenv)
   when '<'
     evaluate(tree[1], genv, lenv) < evaluate(tree[2], genv, lenv)
+  when '<='
+    evaluate(tree[1], genv, lenv) <= evaluate(tree[2], genv, lenv)
+  when '>='
+    evaluate(tree[1], genv, lenv) >= evaluate(tree[2], genv, lenv)
   when 'stmts' #複文の実装
     i = 1
     last = nil
@@ -111,6 +115,15 @@ def fizzbuzz(x)
   end
 end
 
+#フィボナッチ数列のx番目を計算する
+def fib(x)
+  if x <= 1
+    x
+  else
+    fib(x-1) + fib(x-2)
+  end
+end
+
 str = minruby_load()
 
 tree = minruby_parse(str)
@@ -118,6 +131,7 @@ tree = minruby_parse(str)
 genv = { "p" => ["builtin", "p"],
          "add" => ["builtin", "add"],
          "fizzbuzz" => ["builtin", "fizzbuzz"],
+         "fib" => ["builtin", "fib"],
        }
 
 lenv = { "plus_count" => 0 }
