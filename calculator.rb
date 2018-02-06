@@ -5,7 +5,6 @@ def evaluate(tree, genv, lenv)
   when 'lit'
     tree[1]
   when '+'
-    lenv['plus_count'] += 1
     evaluate(tree[1], genv, lenv) + evaluate(tree[2], genv, lenv)
   when '-'
     evaluate(tree[1], genv, lenv) - evaluate(tree[2], genv, lenv)
@@ -82,7 +81,7 @@ def evaluate(tree, genv, lenv)
     i = 0
     while tree[i + 1]
       ary[i] = evaluate(tree[i + 1], genv, lenv)
-      i += 1
+      i = i + 1
     end
     
     ary
@@ -131,17 +130,6 @@ def add(x, y)
   x + y
 end
 
-#引数に与えられた数までのFizzBuzzを表示する
-def fizzbuzz(x)
-  1.upto(x) do |i|
-    str = ''
-    str += 'Fizz' if i%3 == 0
-    str += 'Buzz' if i%5 == 0
-    str = i if str.empty?
-
-    puts str
-  end
-end
 
 #フィボナッチ数列のx番目を計算する
 def fib(x)
@@ -176,10 +164,14 @@ tree = minruby_parse(str)
 
 genv = { "p"        => ["builtin", "p"],
          "add"      => ["builtin", "add"],
-         "fizzbuzz" => ["builtin", "fizzbuzz"],
+         "max"      => ["builtin", "max"],
          "fib"      => ["builtin", "fib"],
          "even?"    => ["builtin", "even?"],
          "odd?"     => ["builtin", "odd?"],
+         "require"  => ["builtin", "require"],
+         "minruby_parse" => ["builtin", "minruby_parse"],
+         "minruby_load"  => ["builtin", "minruby_load"],
+         "minruby_call"  => ["builtin", "minruby_call"],
        }
 
 lenv = { "plus_count" => 0 }
